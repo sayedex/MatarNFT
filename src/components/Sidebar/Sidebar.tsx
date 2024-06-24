@@ -49,7 +49,7 @@ function Sidebar({ setShowSidebar, show }: TopheaderProps) {
               />
             </Link>
             {HeaderList.map((items, indx) => (
-              <Link href={items.link} key={indx}>
+              <Link href={items.link} key={indx}      onClick={() => setShowSidebar((oldVal) => !oldVal)}>
                 <div
                   className={`flex gap-2 relative   p-4 px-6 items-center hover:bg-opacity-50 ${
                     pathName === items.link
