@@ -6,7 +6,7 @@ type Props = {};
 const BUTTON = [
   {
     name: "Create your Own NFT",
-    route: "/nftai",
+    route: "/Nftai",
   },
   {
     name: "How its work?",
