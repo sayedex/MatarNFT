@@ -16,8 +16,8 @@ const BUTTON = [
 
 function Hero({}: Props) {
   return (
-    <div className="flex flex-col-reverse md:flex-row items-start justify-center gap-14 md:gap-16 w-full xl:max-w-7xl mx-auto ">
-      <div className="w-full">
+    <div className="flex flex-col-reverse pt-20 md:pt-0 md:flex-row items-start justify-center gap-14 md:gap-16 w-full xl:max-w-7xl mx-auto ">
+      <div className="w-full md:mt-12">
         <div className=" text-white text-4xl md:text-[70px] font-bold font-RussoOne">
           Generate NFT
         </div>
