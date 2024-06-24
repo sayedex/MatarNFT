@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+require("tailwindcss-animate");
 module.exports = {
   darkMode: "class",
   content: [
@@ -33,7 +34,10 @@ module.exports = {
       'LineProgress-done': 'linear-gradient(90deg, rgba(227, 43, 144, 1), rgba(125, 24, 79, 1))',
       'workbox-gradient':'linear-gradient(90deg, rgba(255, 255, 255, 0.1),rgba(255, 255, 255, 0.05))',
       'slider-gradient':'linear-gradient(90deg, #E32B90 0%, #7D184F 100%)',
-      'btn-gradient':"linear-gradient(90deg, rgba(18, 183, 242, 1),rgba(19, 79, 171, 1))"
+      'btn-gradient':"linear-gradient(90deg, rgba(18, 183, 242, 1),rgba(19, 79, 171, 1))",
+      'sidebar-bg':'linear-gradient(180deg, #000c2b, #022640 86%)',
+      'sidebar-active':"linear-gradient(180deg, #12b7f240, #134fab40)",
+      'button-color':'linear-gradient(90deg, rgba(18, 183, 242, 1),rgba(19, 79, 171, 1)    )'
 
     },
       colors: {

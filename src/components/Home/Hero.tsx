@@ -6,7 +6,7 @@ type Props = {};
 const BUTTON = [
   {
     name: "Create your Own NFT",
-    route: "/",
+    route: "/nftai",
   },
   {
     name: "How its work?",
@@ -16,7 +16,7 @@ const BUTTON = [
 
 function Hero({}: Props) {
   return (
-    <div className="flex flex-col-reverse md:flex-row items-start justify-center gap-14 md:gap-16 w-full ">
+    <div className="flex flex-col-reverse md:flex-row items-start justify-center gap-14 md:gap-16 w-full xl:max-w-7xl mx-auto ">
       <div className="w-full">
         <div className=" text-white text-4xl md:text-[70px] font-bold font-RussoOne">
           Generate NFT
@@ -29,6 +29,7 @@ function Hero({}: Props) {
           {BUTTON.map((e, indx) => {
             return (
               <Link
+              key={indx}
                 className={`${
                   indx == 0
                     ? " bg-gradient-to-b from-sky-500 to-blue-800"

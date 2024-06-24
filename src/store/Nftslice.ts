@@ -29,7 +29,6 @@ const Nftslice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       builder
         .addCase(createImage.pending, (state) => {
           state.genarateload = "pending";

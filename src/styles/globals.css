@@ -42,10 +42,11 @@
 body,
 html {
   /* font-family: "Plus Jakarta Sans", sans-serif; */
-  scroll-behavior: smooth;
-  scroll-padding-top: 0rem;
+  /* scroll-behavior: smooth;
+  scroll-padding-top: 0rem; */
   /* overflow-x: hidden !important; */
-  background: linear-gradient(180deg, #05042B 0%, #0B0A3B 100%);
+  background: radial-gradient(123.15% 29.52% at 122.6% 27.68%,#056189 0,#000c2b 100%);
+
 }
 
 @layer components {
@@ -253,6 +254,15 @@ background-clip: text;
 
 svg.lucide.lucide-x.h-4.w-4 {
   color: white;
+}
+.manu-active:before {
+  background: linear-gradient(180deg,#12b7f2,#134fab);
+  content: " ";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 4px;
 }
 
 #partnerdiv::after {

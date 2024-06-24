@@ -1,5 +1,5 @@
 import { useAppSelector, useAppdispatch } from "../hooks/redux";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { Header as Headerrr } from "@/components/Header/Header";
 
 import GoToTop from "@/components/Gtop/GoToTop";
@@ -13,6 +13,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Layout = (props: any) => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
   useEffect(() => {
     AOS.init({
       duration: 900,
@@ -22,10 +24,10 @@ const Layout = (props: any) => {
   }, []);
 
   return (
-    <div className="mx-auto bg-[#05042B] relative h-screen  xl:flex  ">
-      <Sidebar />
-      <Mobilebar />
-      <div className="relative overflow-y-auto overflow-x-hidden flex-1">
+    <div className="flex " >
+      <Sidebar show={showSidebar} setShowSidebar={setShowSidebar}  />
+      <Mobilebar setShowSidebar={setShowSidebar} />
+      <div className="relative overflow-y-auto overflow-x-hidden  flex-grow w-screen md:w-full min-h-screen">
         <Topheader/> {props.children}
       </div>
       {/* <GoToTop /> */}
