@@ -11,11 +11,13 @@ import LazyloadImage from "@/components/Lazyload/LazyloadImage";
 import { ConvertLink } from "@/utils/ipfs";
 import { Mintnft } from "./model/Model";
 import { toast } from "react-toastify";
+import { useAccount } from "wagmi";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 type Props = {};
 
 const chainId = 137;
 function Main({}: Props) {
+  const {isConnected,address} = useAccount()
   const [artPrompt, setartPrompt] = useState("");
   const [mintmodel, setmintmodel] = useState(false);
   const [stepindex, setstepindex] = useState(0);
@@ -103,6 +105,11 @@ function Main({}: Props) {
   const MintModel  = ()=>{
     if(imageurl==""){
       toast.error("Image cannot be empty");
+      return;
+    }
+
+    if(!address){
+      toast.error("Please connect your wallet");
       return;
     }
 

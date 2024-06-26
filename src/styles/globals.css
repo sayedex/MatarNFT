@@ -136,25 +136,7 @@ background-clip: text;
 
 }
 
-.fotterbg {
-  background-image: url("../../public/fotter/BG.png");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.herobg {
-  background-image: url("../../public/herobg.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: darken;
-}
-.aboutbg {
-  background-image: url("../../public/hero/about.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  
-}
+
 .stopscrollpaddings {
   scroll-padding-top: 30rem;
   /* scroll-snap-align:start !important */
