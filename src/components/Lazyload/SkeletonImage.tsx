@@ -11,10 +11,10 @@ function SkeletonImage({ height, width }: Props) {
     <div role="status" className="space-y-8 mx-auto rounded-3xl w-full h-full	 flex justify-center animate-pulse  ">
       <div
     
-        className={`flex items-center justify-center rounded-3xl  w-full h-full		  bg-gray-300   dark:bg-gray-700`}
+        className={`flex items-center justify-center rounded-3xl  w-full h-full		 bg-cyan-400 bg-opacity-10  dark:bg-gray-700`}
       >
         <svg
-          className="w-10 h-10 flex items-center text-gray-200 dark:text-gray-600"
+          className="w-10 h-10 flex items-center text-white"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"

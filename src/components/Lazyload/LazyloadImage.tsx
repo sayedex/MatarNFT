@@ -25,7 +25,7 @@ function LazyloadImage({ src ,height,isRound}: Props) {
           backgroundColor: "#ffffff ",
           width:imageLoaded?"":"0px",
           height:imageLoaded?"":"0px",
-          border: "2px solid #DAA200",
+          // border: "2px solid #DAA200",
           borderBottom: "none",
           borderLeft: "50%",
           borderRight: "50%",

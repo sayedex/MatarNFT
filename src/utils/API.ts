@@ -6,7 +6,7 @@ const apiUrl = process.env.NODE_ENV === 'production' ? "https://api.trust-ai.io/
 
 //https://api.cipherem.xyz/api
 const newRequest = axios.create({
-  baseURL:"https://api.trust-ai.io/api",
+  baseURL:"https://api.matarnft.ai/api",
   withCredentials: true,
 });
 

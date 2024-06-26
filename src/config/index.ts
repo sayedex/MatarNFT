@@ -2,9 +2,10 @@ import { tokendata ,TeamData} from "../../typeing";
 
 //test  - 0xd04D2046A3C4BE21BE1d02a8a8b98f2B1a3529d7
 // main presale - > 0xfe5B29C2db9A2c99b0ec3e3D56D93298039F442a
-export const Presale_contract = "0x6BD7948Bb4A77Ca6b5D598DA836C6e508a339228";
-export const Site_URL = "https://presale.foxeurope.io";
-export const MIN_BUY = 1;
+export const Presale_contract = "0x614CC74cC120d273dFb06fB1b70395cc5A75AB18";
+export const Token_contract = "0xCF125011268151c2CCD7078493B5A638cD6e786d"
+export const Site_URL = "";
+export const MINT_COST = 0.0005;
 
 
 export const supportedchain = [

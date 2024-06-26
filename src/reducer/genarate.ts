@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "@/service/Nft";
-
+import { toast } from "react-toastify";
 export const createImage = createAsyncThunk(
   "createImage",
   async (params: { data: any }, { rejectWithValue }) => {
@@ -10,6 +10,8 @@ export const createImage = createAsyncThunk(
       const ipfsuri = response.data.ipfsuri
       return { imageurl,ipfsuri };
     } catch (error: any) {
+      toast.error(error.response.data)
+
       return rejectWithValue(error.response.data);
     }
   }

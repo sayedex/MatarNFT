@@ -1,6 +1,4 @@
 import newRequest from "../utils/API";
-import axios from "axios";
-
 const globalService = {
   createImage:(data:any)=>{
     return newRequest.post("/user/createImage",data)

@@ -6,7 +6,7 @@ import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
 import { WagmiProvider } from 'wagmi'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
-import { bsc, mainnet, sepolia } from 'wagmi/chains'
+import { bsc, mainnet, sepolia,polygon } from 'wagmi/chains'
 
 // 2. Create wagmiConfig
 const metadata = {
@@ -16,7 +16,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 const projectId  = process.env.NEXT_PUBLIC_PROJECT_ID || ""
-const chains = [bsc] as const
+const chains = [polygon] as const
 
 
 const config = defaultWagmiConfig({
