@@ -13,6 +13,7 @@ import { Mintnft } from "./model/Model";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
+import Nftaiconnet from "../connetbutton/Nftaiconnet";
 type Props = {};
 
 const chainId = 137;
@@ -163,13 +164,13 @@ function Main({}: Props) {
       />
 
       <div
-        className="flex flex-row   bg-opacity-5 rounded-[5px] space-x-5 font-Oxanium"
+        className="flex flex-col md:flex-row   bg-opacity-5 rounded-[5px] gap-5 font-Oxanium"
       >
         <InputAmount value={artPrompt} handlevaluechange={handleChange} />
         <button
           onClick={() => Generate()}
           disabled={genarateload == "pending"}
-          className="text-white bg-gradient-to-b px-6 from-sky-500 to-blue-800 rounded-[10px] border-2 border-cyan-400"
+          className="text-white  bg-gradient-to-b py-3 md:py-0 px-6 from-sky-500 to-blue-800 rounded-[10px] border-2 border-cyan-400"
         >
           Generate
         </button>
@@ -224,7 +225,7 @@ function Main({}: Props) {
             </div>
             <div className="h-[2px] bg-cyan-400 w-full mt-2 "></div>
             <div className="mt-6 flex flex-row items-center gap-3 mb-6 font-Oxanium">
-              <button
+           { isConnected ?  <button
              disabled={ uploadLoading || loading}
                 onClick={() => {
                   MintModel();
@@ -235,7 +236,7 @@ function Main({}: Props) {
               {
                   uploadLoading || loading ? <ScaleLoader  color="#ffff"/>:"  Mint Now"
                 }
-              </button>
+              </button>:<Nftaiconnet/>}
               <button
                 onClick={() => handleDownload()}
                 className="sButton flex flex-row items-center gap-2"
