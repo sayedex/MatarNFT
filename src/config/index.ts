@@ -2,10 +2,12 @@ import { tokendata ,TeamData} from "../../typeing";
 
 //test  - 0xd04D2046A3C4BE21BE1d02a8a8b98f2B1a3529d7
 // main presale - > 0xfe5B29C2db9A2c99b0ec3e3D56D93298039F442a
-export const Presale_contract = "0x614CC74cC120d273dFb06fB1b70395cc5A75AB18";
-export const Token_contract = "0xCF125011268151c2CCD7078493B5A638cD6e786d"
+export const Presale_contract = "0x29E58C1B403d8083C8Fa253f755F8997712be7F1";
+export const Token_contract = "0x5F2935bE3139353881f993D4E69bd03F81D97d26"
 export const Site_URL = "";
 export const MINT_COST = 0.0005;
+
+// 0xE3839924Da5Db863e5FD4F410439a6f7f8fD46c5
 
 
 export const supportedchain = [

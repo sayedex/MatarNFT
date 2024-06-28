@@ -4,10 +4,11 @@ import {
   getTokeninstance,
   getContractInstanceSigner,
   getTokeninstanceBysigner,
+  
 } from "@/utils/contracthelper";
-import { ConvertEthTonormal } from "@/utils/numbers";
+import { ConvertEthTonormal} from "@/utils/numbers";
 import { getPublicProvider } from "@/utils/contracthelper";
-import { Token_contract, Presale_contract, MINT_COST } from "@/config";
+import { Token_contract, Presale_contract } from "@/config";
 import ABI from "@/config/ABI/Nftminter.json";
 import { FormatUnit } from "@/utils/contracthelper";
 
@@ -38,23 +39,8 @@ const useMintHooks = (signer: any, chainId: number) => {
     }
   }, [signer, Presale_contract]);
 
-  const ApproveAndMint = async (url: string) => {
-    const myContract = await getTokeninstanceBysigner(Presale_contract, signer);
-    const currentBalance = await myContract.balanceOf(signer._address);
-    const userBalance = await ConvertEthTonormal(currentBalance, 18);
-
-    if (Number(userBalance) < MINT_COST) {
-      console.log("asasa");
-
-      toast.error("Low balance");
-      return;
-    }
-
-    setLoading(true);
-
-    let approvalToastId;
-    let mintingToastId;
-
+  const ApproveAndMint = async (url: string,sg:string,msg:string,cost:number) => {
+    setLoading(true)
     const tokenContractInstance = await getTokeninstance(
       Token_contract,
       true,
@@ -62,6 +48,20 @@ const useMintHooks = (signer: any, chainId: number) => {
       signer
     );
 
+    const currentBalance = await tokenContractInstance.balanceOf(signer._address);
+    const userBalance = await ConvertEthTonormal(currentBalance, 18);
+
+    if (Number(userBalance) < Number(cost)) {
+      toast.error("Low balance");
+      return;
+    }
+
+
+
+    let approvalToastId;
+    let mintingToastId;
+
+  
     const MintercontractInstance = await getContractInstanceSigner(
       Presale_contract,
       ABI,
@@ -69,7 +69,7 @@ const useMintHooks = (signer: any, chainId: number) => {
     );
 
     try {
-      const amount = await FormatUnit(MINT_COST, 18);
+      const amount = await FormatUnit(cost, 18);
       // Approval transaction
       approvalToastId = toast.loading("Approval started...");
       const approvalResponse = await tokenContractInstance.approve(
@@ -89,7 +89,7 @@ const useMintHooks = (signer: any, chainId: number) => {
 
       // Minting transaction
       mintingToastId = toast.loading("Minting started...");
-      const mintResponse = await MintercontractInstance.Mint(url);
+      const mintResponse = await MintercontractInstance.Mint(url,sg,msg,cost);
       const mintReceipt = await mintResponse.wait();
       toast.dismiss(mintingToastId);
 

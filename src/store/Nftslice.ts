@@ -8,6 +8,7 @@ export interface PoolsState {
   login: boolean;
   imageurl: string;
   ipfsuri: any;
+  
 }
 
 const initialState: PoolsState = {

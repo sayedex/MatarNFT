@@ -8,6 +8,9 @@ const globalService = {
   },
   checkfreelimit:()=>{
     return newRequest.get("/user/checkfreelimit")
+  },
+  getSignature:()=>{
+    return newRequest.post("/user/getSignature")
   }
 };
 

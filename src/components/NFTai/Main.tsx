@@ -6,7 +6,7 @@ import useNft from "@/hooks/useNft";
 import { useEthersSigner } from "@/hooks/useEthersSigner";
 import useMintHooks from "@/hooks/useTransation";
 import PuffLoader from "react-spinners/PuffLoader";
-import ScaleLoader from "react-spinners/ScaleLoader"
+import ScaleLoader from "react-spinners/ScaleLoader";
 import LazyloadImage from "@/components/Lazyload/LazyloadImage";
 import { ConvertLink } from "@/utils/ipfs";
 import { Mintnft } from "./model/Model";
@@ -14,11 +14,15 @@ import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import Nftaiconnet from "../connetbutton/Nftaiconnet";
+import { useAppdispatch } from "@/hooks/redux";
+import { getSignatureforUser } from "@/reducer/genarate";
+
 type Props = {};
 
 const chainId = 137;
 function Main({}: Props) {
-  const {isConnected,address} = useAccount()
+  const dispatch = useAppdispatch();
+  const { isConnected, address } = useAccount();
   const [artPrompt, setartPrompt] = useState("");
   const [mintmodel, setmintmodel] = useState(false);
   const [stepindex, setstepindex] = useState(0);
@@ -37,25 +41,20 @@ function Main({}: Props) {
     imageurl,
     genarateImage,
     genarateload,
-    ipfsurl:MetadataURI,
+    ipfsurl: MetadataURI,
     addImage,
     UploadLocalImage,
     Storenft,
   } = useNft();
   const signer = useEthersSigner({ chainId: chainId });
-  const { ApproveAndMint,loading,balance } = useMintHooks(signer, chainId);
+  const { ApproveAndMint, loading, balance } = useMintHooks(signer, chainId);
   const handleChange = (e: string) => {
     setartPrompt(e);
   };
 
   const storenftformetadata = async () => {
-
-    if(Number(balance) < MINT_COST){
-      toast.error("Low balance");
-      return;
-    }
-    
-    if(imageurl==""){
+  
+    if (imageurl == "") {
       toast.error("Image cannot be empty");
       return;
     }
@@ -63,6 +62,9 @@ function Main({}: Props) {
       toast.error("Name and description cannot be empty");
       return;
     }
+
+    const { payload } = await dispatch(getSignatureforUser());
+
     //take image from local image if localimage true ..
     if (isLocalImg) {
       const uploadLocal = await UploadLocalImage(fileImg);
@@ -70,8 +72,8 @@ function Main({}: Props) {
       const isdone = await Storenft(uploadLocal, nftinfo);
       if (isdone) {
         setstepindex(1);
-        ApproveAndMint(MetadataURI);
-        setmintmodel(false)
+        ApproveAndMint(MetadataURI, payload?.signature, payload?.msg, payload?.cost);
+        setmintmodel(false);
         // lets run minting transation...
       }
 
@@ -80,20 +82,16 @@ function Main({}: Props) {
       const isdone = await Storenft(imageurl, nftinfo);
       if (isdone) {
         setstepindex(1);
-        ApproveAndMint(MetadataURI);
-        setmintmodel(false)
+        setstepindex(1);
+        ApproveAndMint(MetadataURI, payload?.signature, payload?.msg, payload?.cost);
+        setmintmodel(false);
         // lets run minting transation...
       }
     }
-
-
   };
 
-  const Mint = async () => {
-    ApproveAndMint('sayed.com')
-  };
   const Generate = async () => {
-    if(!artPrompt.trim() ){
+    if (!artPrompt.trim()) {
       toast.error("prompt cannot be empty");
       return;
     }
@@ -102,22 +100,19 @@ function Main({}: Props) {
     });
   };
 
-
-  const MintModel  = ()=>{
-    if(imageurl==""){
+  const MintModel = () => {
+    if (imageurl == "") {
       toast.error("Image cannot be empty");
       return;
     }
 
-    if(!address){
+    if (!address) {
       toast.error("Please connect your wallet");
       return;
     }
 
     setmintmodel(true);
-  }
-
-
+  };
 
   const handleInfoChange = (fieldName: string, value: string) => {
     setnftinfo((prevInfo) => ({
@@ -141,8 +136,6 @@ function Main({}: Props) {
         document.body.removeChild(anchor);
 
         toast.success("Image downloaded successfully!");
-
-        
       } catch (error) {
         console.error("Error downloading image:", error);
         toast.error("Failed to download image. Please try again.");
@@ -150,12 +143,11 @@ function Main({}: Props) {
     }
   };
 
-
   return (
     <div className=" bg-cyan-400 bg-opacity-10 rounded-[10px] border border-cyan-400 px-8 py-12 max-w-7xl mx-auto">
       <Mintnft
         open={mintmodel}
-        mintnft={() => Mint()}
+        mintnft={() => {}}
         uploadmetadata={() => storenftformetadata()}
         stepindex={stepindex}
         onClose={() => setmintmodel(false)}
@@ -163,9 +155,7 @@ function Main({}: Props) {
         onInfoChange={handleInfoChange}
       />
 
-      <div
-        className="flex flex-col md:flex-row   bg-opacity-5 rounded-[5px] gap-5 font-Oxanium"
-      >
+      <div className="flex flex-col md:flex-row   bg-opacity-5 rounded-[5px] gap-5 font-Oxanium">
         <InputAmount value={artPrompt} handlevaluechange={handleChange} />
         <button
           onClick={() => Generate()}
@@ -225,18 +215,24 @@ function Main({}: Props) {
             </div>
             <div className="h-[2px] bg-cyan-400 w-full mt-2 "></div>
             <div className="mt-6 flex flex-row items-center gap-3 mb-6 font-Oxanium">
-           { isConnected ?  <button
-             disabled={ uploadLoading || loading}
-                onClick={() => {
-                  MintModel();
-                  // Mint()
-                }}
-                className="sButton bg-btn-gradient h-[50px] "
-              >
-              {
-                  uploadLoading || loading ? <ScaleLoader  color="#ffff"/>:"  Mint Now"
-                }
-              </button>:<Nftaiconnet/>}
+              {isConnected ? (
+                <button
+                  disabled={uploadLoading || loading}
+                  onClick={() => {
+                    MintModel();
+                    // Mint()
+                  }}
+                  className="sButton bg-btn-gradient h-[50px] "
+                >
+                  {uploadLoading || loading ? (
+                    <ScaleLoader color="#ffff" />
+                  ) : (
+                    "  Mint Now"
+                  )}
+                </button>
+              ) : (
+                <Nftaiconnet />
+              )}
               <button
                 onClick={() => handleDownload()}
                 className="sButton flex flex-row items-center gap-2"
