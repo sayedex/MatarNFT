@@ -89,7 +89,7 @@ const useMintHooks = (signer: any, chainId: number) => {
 
       // Minting transaction
       mintingToastId = toast.loading("Minting started...");
-      const mintResponse = await MintercontractInstance.Mint(url,sg,msg,cost);
+      const mintResponse = await MintercontractInstance.Mint(url,sg,msg,amount);
       const mintReceipt = await mintResponse.wait();
       toast.dismiss(mintingToastId);
 

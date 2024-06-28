@@ -53,7 +53,6 @@ function Main({}: Props) {
   };
 
   const storenftformetadata = async () => {
-  
     if (imageurl == "") {
       toast.error("Image cannot be empty");
       return;
@@ -62,9 +61,11 @@ function Main({}: Props) {
       toast.error("Name and description cannot be empty");
       return;
     }
+    let checkToastId;
+    checkToastId = toast.loading("checking nft price...");
 
     const { payload } = await dispatch(getSignatureforUser());
-
+    toast.dismiss(checkToastId);
     //take image from local image if localimage true ..
     if (isLocalImg) {
       const uploadLocal = await UploadLocalImage(fileImg);
@@ -72,7 +73,12 @@ function Main({}: Props) {
       const isdone = await Storenft(uploadLocal, nftinfo);
       if (isdone) {
         setstepindex(1);
-        ApproveAndMint(MetadataURI, payload?.signature, payload?.msg, payload?.cost);
+        ApproveAndMint(
+          MetadataURI,
+          payload?.signature,
+          payload?.msg,
+          payload?.cost
+        );
         setmintmodel(false);
         // lets run minting transation...
       }
@@ -83,7 +89,12 @@ function Main({}: Props) {
       if (isdone) {
         setstepindex(1);
         setstepindex(1);
-        ApproveAndMint(MetadataURI, payload?.signature, payload?.msg, payload?.cost);
+        ApproveAndMint(
+          MetadataURI,
+          payload?.signature,
+          payload?.msg,
+          payload?.cost
+        );
         setmintmodel(false);
         // lets run minting transation...
       }
@@ -252,7 +263,7 @@ function Main({}: Props) {
               Note:
             </div>
             <div className="text-white text-base md:text-xl font-medium font-Oxanium capitalize bg-gradient-to-b from-sky-500 to-blue-800 rounded-[10px] px-3 py-3">
-              Price: 1$ of matar for minting + bNB Fees
+              Price: 4$ of matar for minting + bNB Fees
             </div>
           </div>
         </div>
