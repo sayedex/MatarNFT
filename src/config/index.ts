@@ -1,13 +1,24 @@
-import { tokendata ,TeamData} from "../../typeing";
+import { tokendata, TeamData } from "../../typeing";
 
 //test  - 0xd04D2046A3C4BE21BE1d02a8a8b98f2B1a3529d7
 // main presale - > 0xfe5B29C2db9A2c99b0ec3e3D56D93298039F442a
 export const Presale_contract = "0x752228C9Be5e425217a764194decd4E2C4dD8335";
-export const Token_contract = "0x5F2935bE3139353881f993D4E69bd03F81D97d26"
+export const Token_contract = "0x5F2935bE3139353881f993D4E69bd03F81D97d26";
 export const Site_URL = "";
 export const MINT_COST = 0.0005;
+export const IMAGE_COST= 0.00018;
 
 // 0xE3839924Da5Db863e5FD4F410439a6f7f8fD46c5
+
+export const MINT_CONTRACT: { [key: number]: string } = {
+  56: "0xE5B9a30Eadf7F7787907eA7660305fABA1ed3eAd",
+  137: "0x752228C9Be5e425217a764194decd4E2C4dD8335",
+};
+
+export const TOKEN_CONTRACT: { [key: number]: string } = {
+  56: "0x32413018B57A706EA5882C8A9279258e637157e6",
+  137: "0x5F2935bE3139353881f993D4E69bd03F81D97d26",
+};
 
 
 export const supportedchain = [
@@ -18,8 +29,6 @@ export const supportedchain = [
   {
     id: 56,
     name: "Bep20",
-  
-  
   },
 ];
 //admin wallet ;
@@ -33,8 +42,8 @@ export const CHAIN_NAME: { [key: number]: string } = {
 export const Presale_price: { [key: number]: number } = {
   1: 0.25,
   2: 0.3,
-  3: .35,
-  4: .40,
+  3: 0.35,
+  4: 0.4,
 };
 
 export const AllsocialMedia = [
@@ -44,7 +53,7 @@ export const AllsocialMedia = [
     h: 32,
     w: 28,
   },
-  
+
   {
     name: "Telegram.svg",
     link: "https://t.me/matar_ai",
@@ -78,9 +87,4 @@ export const AllsocialMedia = [
     h: 31,
     w: 31,
   },
-
 ];
-
-
-
-

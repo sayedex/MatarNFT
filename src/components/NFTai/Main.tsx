@@ -19,7 +19,7 @@ import { getSignatureforUser } from "@/reducer/genarate";
 
 type Props = {};
 
-const chainId = 137;
+const chainId = 56;
 function Main({}: Props) {
   const dispatch = useAppdispatch();
   const { isConnected, address } = useAccount();
@@ -47,7 +47,7 @@ function Main({}: Props) {
     Storenft,
   } = useNft();
   const signer = useEthersSigner({ chainId: chainId });
-  const { ApproveAndMint, loading, balance } = useMintHooks(signer, chainId);
+  const { ApproveAndMint, loading, balance ,HandleRun} = useMintHooks(signer, chainId);
   const handleChange = (e: string) => {
     setartPrompt(e);
   };
@@ -103,8 +103,16 @@ function Main({}: Props) {
       toast.error("prompt cannot be empty");
       return;
     }
-    genarateImage({
-      prompt: artPrompt,
+
+    HandleRun(
+      "buyCredits",
+      [],
+    ).then((e) => {
+      if (e?.isDone) {
+        genarateImage({
+          prompt: artPrompt,
+        });
+      }
     });
   };
 

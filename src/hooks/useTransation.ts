@@ -8,7 +8,7 @@ import {
 } from "@/utils/contracthelper";
 import { ConvertEthTonormal} from "@/utils/numbers";
 import { getPublicProvider } from "@/utils/contracthelper";
-import { Token_contract, Presale_contract } from "@/config";
+import { Token_contract, Presale_contract,MINT_CONTRACT,IMAGE_COST ,TOKEN_CONTRACT} from "@/config";
 import ABI from "@/config/ABI/Nftminter.json";
 import { FormatUnit } from "@/utils/contracthelper";
 
@@ -20,7 +20,7 @@ const useMintHooks = (signer: any, chainId: number) => {
     setLoading(true);
     try {
       const myContract = await getTokeninstanceBysigner(
-        Presale_contract,
+        TOKEN_CONTRACT[chainId],
         signer
       );
       const currentBalance = await myContract.balanceOf(signer._address);
@@ -42,7 +42,7 @@ const useMintHooks = (signer: any, chainId: number) => {
   const ApproveAndMint = async (url: string,sg:string,msg:string,cost:number) => {
     setLoading(true)
     const tokenContractInstance = await getTokeninstance(
-      Token_contract,
+      TOKEN_CONTRACT[chainId],
       true,
       chainId,
       signer
@@ -53,6 +53,7 @@ const useMintHooks = (signer: any, chainId: number) => {
 
     if (Number(userBalance) < Number(cost)) {
       toast.error("Low balance");
+      setLoading(false)
       return;
     }
 
@@ -63,7 +64,7 @@ const useMintHooks = (signer: any, chainId: number) => {
 
   
     const MintercontractInstance = await getContractInstanceSigner(
-      Presale_contract,
+      MINT_CONTRACT[chainId],
       ABI,
       signer
     );
@@ -109,7 +110,57 @@ const useMintHooks = (signer: any, chainId: number) => {
     }
   };
 
-  return { loading, ApproveAndMint, balance };
+  const HandleRun = async (
+    fname: string,
+    args: Array<any>
+  ) => {
+    const _contract = MINT_CONTRACT[chainId];
+    if (!_contract) return;
+    const name = String(fname);
+    setLoading(true);
+    const toastId = toast.loading("Initiating image generation process. Please wait... ");
+
+    const myContract = await getContractInstanceSigner(_contract, ABI, signer);
+    const amount = await FormatUnit(IMAGE_COST, 18);
+
+    try {
+      const response = await myContract?.[name](...args, {
+        value: amount,
+      });
+      const receipt = await response.wait();
+
+      toast.dismiss(toastId);
+      toast.success("image generation started..");
+      setLoading(false);
+      return { isDone: true };
+    } catch (error: any) {
+      console.log(error, "error");
+      toast.dismiss(toastId);
+      setLoading(false);
+      if (error.code == "ACTION_REJECTED") {
+        toast.error("User Cancelled The Transaction")
+      } else if (error.reason) {
+        toast.error(error.reason || "Something went wrong try again");
+      } else if (error.data) {
+        if (error.data.code == -32000) {
+          toast.error(
+            "Insufficient funds. Please ensure you have a minting cost.",
+           
+          );
+        } else {
+          toast.error("Something went wrong try again");
+        }
+      } else {
+        toast.error("Something went wrong try again");
+      }
+
+      return { isDone: false, error: "failed!" };
+    }
+  };
+
+
+
+  return { loading, ApproveAndMint, balance,HandleRun };
 };
 
 export default useMintHooks;
