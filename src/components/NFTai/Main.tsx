@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputAmount from "./Helper/InputAmount";
 import { tag_search } from "@/config/nft";
-import { Token_contract, Presale_contract, MINT_COST } from "@/config";
+import { Token_contract, MINT_COST } from "@/config";
 import useNft from "@/hooks/useNft";
 import { useEthersSigner } from "@/hooks/useEthersSigner";
 import useMintHooks from "@/hooks/useTransation";

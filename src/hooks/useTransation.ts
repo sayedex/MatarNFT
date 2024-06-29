@@ -8,7 +8,7 @@ import {
 } from "@/utils/contracthelper";
 import { ConvertEthTonormal} from "@/utils/numbers";
 import { getPublicProvider } from "@/utils/contracthelper";
-import { Token_contract, Presale_contract,MINT_CONTRACT,IMAGE_COST ,TOKEN_CONTRACT} from "@/config";
+import { Token_contract,MINT_CONTRACT,IMAGE_COST ,TOKEN_CONTRACT} from "@/config";
 import ABI from "@/config/ABI/Nftminter.json";
 import { FormatUnit } from "@/utils/contracthelper";
 
@@ -37,7 +37,7 @@ const useMintHooks = (signer: any, chainId: number) => {
     if (signer != undefined) {
       CheckBalance();
     }
-  }, [signer, Presale_contract]);
+  }, [signer]);
 
   const ApproveAndMint = async (url: string,sg:string,msg:string,cost:number) => {
     setLoading(true)
@@ -74,7 +74,7 @@ const useMintHooks = (signer: any, chainId: number) => {
       // Approval transaction
       approvalToastId = toast.loading("Approval started...");
       const approvalResponse = await tokenContractInstance.approve(
-        Presale_contract,
+        MINT_CONTRACT[chainId],
         amount
       );
       const approvalReceipt = await approvalResponse.wait();
