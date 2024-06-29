@@ -41,7 +41,7 @@ function Main({}: Props) {
     imageurl,
     genarateImage,
     genarateload,
-    ipfsurl: MetadataURI,
+    ipfsurl: MetadataUri,
     addImage,
     UploadLocalImage,
     Storenft,
@@ -70,14 +70,13 @@ function Main({}: Props) {
     if (isLocalImg) {
       const uploadLocal = await UploadLocalImage(fileImg);
 
-      const isdone = await Storenft(uploadLocal, nftinfo);
+      const {isdone,metadataURL} = await Storenft(uploadLocal, nftinfo);
       if (isdone) {
-        setstepindex(1);
         ApproveAndMint(
-          MetadataURI,
+          metadataURL,
           payload?.signature,
           payload?.msg,
-          payload?.cost
+          payload?.cost,
         );
         setmintmodel(false);
         // lets run minting transation...
@@ -85,12 +84,10 @@ function Main({}: Props) {
 
       // const uploadLocal = UploadLocalImage("")
     } else {
-      const isdone = await Storenft(imageurl, nftinfo);
+      const {isdone,metadataURL} = await Storenft(imageurl, nftinfo);
       if (isdone) {
-        setstepindex(1);
-        setstepindex(1);
         ApproveAndMint(
-          MetadataURI,
+          metadataURL,
           payload?.signature,
           payload?.msg,
           payload?.cost

@@ -71,15 +71,21 @@ const useNft = () => {
       toast.success("Metadata uploaded successfully - Minting started!");
 
       setUploaduploadLoading(false);
-      return true;
+      return {
+        isdone:true,
+        metadataURL:url
+      };
     } catch (error) {
       toast.dismiss(sign_toast_id);
       console.error("Error upuploadLoading metadata:", error);
       setUploaduploadLoading(false);
       toast.error("Something went wrong. Please try again.");
+      
     }
 
-    return false;
+    return {
+      isdone:false,
+    }
   };
 
   return {
